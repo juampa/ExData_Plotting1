@@ -11,4 +11,4 @@ png("plot1.png",width=480,height=480,units="px")
 hist(data$Global_active_power, col="red", main="Global Active Power", xlab = "Global Active Power (kilowatts)", xaxp  = c(0, 6, 3), xlim = c(0,8), yaxp = c(0,1200, 6))
 
 # Close the device
-dev.off
+dev.off()

@@ -5,17 +5,22 @@ data = read.csv("household_power_consumption.txt", header = TRUE, sep = ";"  , n
 # Filter between two dates.
 data <- subset(data, as.Date(data$Date, "%d/%m/%Y") >= as.Date('2007-02-01', "%Y-%m-%d") & as.Date(data$Date, "%d/%m/%Y") <= as.Date('2007-02-02', "%Y-%m-%d"))
 
-data$Date <- as.Date(data$Date, "%d/%m/%Y")
+# Add a columns with date and time together
+data <- within(data, Datetime <- as.POSIXlt(paste(Date, Time),
+                                          format = "%d/%m/%Y %H:%M:%S"))
 
-#Prepare a png file
-#png("plot2.png",width=480,height=480,units="px")
+# TODO Try without this
+data$Date <- as.Date(data$Date, "%d/%m/%Y")
+as.POSIXct(as.character(data$Time), format = "%H:%M:%S")
+
+#Prepare a png
+png("plot2.png",width=480,height=480,units="px")
 
 # Plot time vs Global...
-plot(data$Time, data$Global_active_power, xaxt = "n")
+#
+plot(data$Datetime, data$Global_active_power, type="l", xaxt = "n" , xlab=NA , ylab="Global Active Power(kilowatts)")
 
-#Axis
-
-axis(side=1, at=data$Time,labels=format(data$Date,"%a"))
+# No x ticks or axis
 
 # Close the device
-# dev.off
+dev.off()
