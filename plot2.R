@@ -14,13 +14,12 @@ data$Date <- as.Date(data$Date, "%d/%m/%Y")
 as.POSIXct(as.character(data$Time), format = "%H:%M:%S")
 
 #Prepare a png
-png("plot2.png",width=480,height=480,units="px")
+#png("plot2.png",width=480,height=480,units="px")
 
 # Plot time vs Global...
 #
 plot(data$Datetime, data$Global_active_power, type="l", xaxt = "n" , xlab=NA , ylab="Global Active Power(kilowatts)")
 
-# No x ticks or axis
-
+axis.POSIXct(1, at=seq(data$Datetime[1], max(data$Datetime), by="days"), format = "%a")
 # Close the device
-dev.off()
+#dev.off()
